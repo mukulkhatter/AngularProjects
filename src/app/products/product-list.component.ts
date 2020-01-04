@@ -40,12 +40,16 @@ showImage:boolean=false;
 
 ngOnInit():void{
 
-this._ProductService.getProducts().subscribe({next:products=>
+this._ProductService.getProducts().subscribe({
+  next:products=>
   {this.products=products
     this.filteredProducts=this.products;
-  },error:err=>console.log(err)}); 
-  this.listFilter=this.route.snapshot.queryParamMap.get('filterBy')||'';
+  },
+  complete:()=>{this.listFilter=this.route.snapshot.queryParamMap.get('filterBy')||'';
   this.showImage= this.route.snapshot.queryParamMap.get('img')==='true';
+console.log("Complete");  
+}
+  ,error:err=>console.log(err)}); 
   
 }
 
@@ -54,7 +58,7 @@ this._ProductService.getProducts().subscribe({next:products=>
 }
 
 getFilteredProducts(filterBy:string):IProduct[]{
-  debugger;
+ 
   filterBy=filterBy.toLocaleLowerCase();
   return this.products.filter((product)=>product.productName.toLocaleLowerCase().indexOf(filterBy)!==-1 
   
