@@ -1,3 +1,4 @@
+
 export interface IProduct
 {
     "productId": number;
@@ -8,4 +9,11 @@ export interface IProduct
 "price": number;
 "starRating": number;
 "imageUrl": string;
+}
+
+export interface ProductResolved
+{
+    product:IProduct;
+error?:any;
+    
 }

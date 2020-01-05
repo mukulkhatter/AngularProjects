@@ -8,6 +8,7 @@ import { ConvertToSpacesPipe } from '../shared/convert-to-spaces-pipe';
 import { ProductDetailsGuard } from './product-details.guard';
 import { SharedModule } from '../shared/shared.module';
 import { ProductEditComponent } from './product-edit.component';
+import { ProductResolver } from './product-resolver.service';
 
 
 
@@ -22,9 +23,10 @@ import { ProductEditComponent } from './product-edit.component';
     SharedModule,
     RouterModule.forChild([
       {path:'products',component:ProductListComponent},
-      {path:'products/:id', canActivate:[ProductDetailsGuard],component:ProductDetailsComponent},
-{path:'products/:id/edit',component:ProductEditComponent}
+      {path:'products/:id', component:ProductDetailsComponent,resolve:{resolveData:ProductResolver}},
+{path:'products/:id/edit',component:ProductEditComponent,resolve:{resolveData:ProductResolver}}
     ]), 
   ]
+  ,providers:[ProductResolver]
 })
 export class ProductModule { }

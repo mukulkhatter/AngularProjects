@@ -47,7 +47,7 @@ this._ProductService.getProducts().subscribe({
   },
   complete:()=>{this.listFilter=this.route.snapshot.queryParamMap.get('filterBy')||'';
   this.showImage= this.route.snapshot.queryParamMap.get('img')==='true';
-console.log("Complete");  
+  
 }
   ,error:err=>console.log(err)}); 
   
