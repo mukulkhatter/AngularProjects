@@ -3,7 +3,7 @@ import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/r
 import {ProductResolved,IProduct} from './product'
 
 import { ProductService } from './product.service';
-import { Observable, of,Operator, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn:'root'
