@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ProductEditComponent } from './product-edit.component';
 import { ProductResolver } from './product-resolver.service';
 import { ProductEditInfoComponent } from './product-edit-info.component';
+import { AuthGuard } from '../users/auth.guard';
 
 
 
@@ -27,6 +28,7 @@ import { ProductEditInfoComponent } from './product-edit-info.component';
       // remove Component from parent Route  component:ProductListComponent
       //Then Child routes are now part of product remove product before them in child route
       {path:'products',
+      canActivate:[AuthGuard],
       children:[
         {
           // Add default Path

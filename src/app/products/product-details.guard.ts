@@ -11,6 +11,13 @@ export class ProductDetailsGuard implements CanActivate {
   {
 
   }
+  // Guard is used for Authentication
+  //Any time there is change in url or even in parameter of url this guard calls
+  //for warning mechanism
+  //Activated route snapshot is used to get info about current route, Parms and data 
+  // state provide access to entire router state
+  // return value can be observable or boolean or promise can be 
+  //
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
