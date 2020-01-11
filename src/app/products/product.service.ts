@@ -20,6 +20,7 @@ getProducts():Observable<IProduct[]>{
 }
 
 getProduct(id:number):Observable<IProduct>{
+  
   return  this.http.get<IProduct[]>(this.productServiceUrl).pipe(
     map(items=>items.find(y=>y.productId==id))
   

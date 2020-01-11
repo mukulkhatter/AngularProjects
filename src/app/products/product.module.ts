@@ -9,6 +9,7 @@ import { ProductEditComponent } from './product-edit.component';
 import { ProductResolver } from './product-resolver.service';
 import { ProductEditInfoComponent } from './product-edit-info.component';
 import { AuthGuard } from '../users/auth.guard';
+import { ProductEditGuard } from './product-edit.guard';
 
 
 
@@ -27,26 +28,26 @@ import { AuthGuard } from '../users/auth.guard';
       // Add default path in Child Route
       // remove Component from parent Route  component:ProductListComponent
       //Then Child routes are now part of product remove product before them in child route
-      {path:'products',
-      canActivate:[AuthGuard],
-      children:[
-        {
-          // Add default Path
-path:'',component:ProductListComponent
+      // Now we removing parent from route config as  we didi lazy loading for feature module in app routong 
+      //we add parent and auth gurad there in parent 
+      //path:'products',
+      //canActivate:[AuthGuard],
+      {    
+       // Add default Path
+        path:'',component:ProductListComponent
 
-        },
-        {path:':id', component:ProductDetailsComponent,resolve:{resolveData:ProductResolver}},
-
-        {path:':id/edit',component:ProductEditComponent,resolve:{resolveData:ProductResolver},
+      },
+      {path:':id', component:ProductDetailsComponent,resolve:{resolveData:ProductResolver}},
+      
+      {path:':id/edit',component:ProductEditComponent,
+        canDeactivate:[ProductEditGuard],resolve:{resolveData:ProductResolver},
   children:[
     {path:'',redirectTo:'info',pathMatch:'full'},
     {path:'info',component:ProductEditInfoComponent},
   ]}
-      ]       
-    
-    },
+      ],
       
-    ]), 
+    ), 
   ]
   ,providers:[]
 })

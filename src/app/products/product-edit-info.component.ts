@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { IProduct } from './product';
 
 
-
 @Component({
     templateUrl:'./product-edit-info.component.html'
 })

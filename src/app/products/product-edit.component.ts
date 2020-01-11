@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct, ProductResolved } from './product';
 
 @Component({
@@ -8,18 +8,35 @@ import { IProduct, ProductResolved } from './product';
 })
 export class ProductEditComponent implements OnInit
 {
-constructor(private productService:ProductService,private route:ActivatedRoute){
+constructor(private productService:ProductService,private route:ActivatedRoute,private router:Router){
 
 }
-product:IProduct;
 
+
+get product():IProduct{
+return this.currentProduct;
+}
+
+set product(value:IProduct){
+    this.currentProduct=value;
+    // using spread operator to make clone of another object
+    this.orignalProduct={...value};
+}
+
+private orignalProduct:IProduct=null;
+private currentProduct:IProduct=null;
+
+get isDirty():boolean
+{
+return JSON.stringify(this.orignalProduct)===JSON.stringify(this.currentProduct);
+}
 
 // ng oninit method not reacted to changes if we are on the same page 
 // if we make change in url segment also not initialized component Agaon 
 ngOnInit():void{
 
 this.route.data.subscribe(dt=>{
-
+console.log(dt);
     const resolverData:IProduct=dt["resolveData"];
 
     this.product=resolverData;
@@ -29,6 +46,26 @@ this.route.data.subscribe(dt=>{
     // as now we are using Resolvers
     //this.getProductDetails();
 }
+
+onCancelButtonClick(){
+    
+}
+
+onSaveButtonClick(){
+    // if id ==0 call create method 
+    // else create Update method
+    
+this.reset();
+this.router.navigate(['/products']);
+}
+
+reset()
+{
+this.orignalProduct=null;
+this.currentProduct=null;
+}
+
+
 
 // Instead of using Activated Snapshot to get parameter value 
     // we use observable to subscribe for changes occur in url as
